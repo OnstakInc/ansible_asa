@@ -2,12 +2,13 @@
 - name: Configure ASAv
   hosts: asa
   gather_facts: no
- 
+
   tasks:
     - name: Configure webvpn commands on ASA
       asa_config:
         lines:
-          - anyconnect image disk0:/anyconnect-win-4.6.00362-webdeploy-k9.pkg 1 regex "Windows"
+          - anyconnect image disk0:/anyconnect-win-4.8.02045-webdeploy-k9.pkg 1 regex "Windows"
+          - anyconnect image disk0:/anyconnect-linux64-4.8.02045-webdeploy-k9.pkg 2 regex "Linux"
           - anyconnect profiles HOL-LAB-PROFILE disk0:/anyconnect-profile.xml
         parents:
           - webvpn
@@ -28,6 +29,7 @@
         lines:
           - anyconnect module value none
           - anyconnect profiles value HOL-LAB-PROFILE type user
+          - wr
         parents:
           - group-policy LAB-PROFILE attributes
           - webvpn
